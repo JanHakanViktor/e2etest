@@ -10,15 +10,16 @@ describe("User flow for recipe finder", () => {
   });
 
   it("should throw error message if empty search", () => {
+    cy.get("input[placeholder='Sök recept']").type(" ");
     cy.contains("Sök").click();
-    cy.contains("Sök recept").should("exist");
-    cy.get("img").should("not.exist");
+    cy.contains("Sökfältet är tomt").should("exist");
+    cy.contains("img").should("not.exist");
   });
 
-  it("should show message if no recipies are found", () => {
+  it("should throw error message if no recipes are found", () => {
     cy.get("input[placeholder='Sök recept']").type("qwertyuiop");
     cy.contains("Sök").click();
-    cy.contains("Inga resultat hittades").should("exist");
+    cy.contains("Inga recept hittades").should("exist");
     cy.get("img").should("not.exist");
   });
 });

@@ -14,8 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "レシピ",
-  description:
-    "Generate your next recipe, find inspiration for your next meal.",
+  description: "Search among recipes to find you next meal!",
 };
 
 export default function RootLayout({
@@ -25,7 +24,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body
+        style={{ overflowX: "hidden", maxWidth: "100vw" }}
+        className={`${geistSans.variable} ${geistMono.variable}`}
+      >
         {children}
       </body>
     </html>
