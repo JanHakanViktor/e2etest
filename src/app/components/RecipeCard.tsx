@@ -15,10 +15,12 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useState } from "react";
 
 export default function RecipeList({ recipe }: { recipe: Recipe }) {
-  const [favorite, setFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const handleFavorite = () => {
-    setFavorite((prev) => !prev);
+    setIsFavorite((prev) => !prev);
+
+    
   };
 
   return (
@@ -47,7 +49,7 @@ export default function RecipeList({ recipe }: { recipe: Recipe }) {
             onClick={handleFavorite}
             sx={{ width: "8rem" }}
           >
-            <FavoriteIcon color={favorite ? "error" : "inherit"} />
+            <FavoriteIcon color={isFavorite ? "error" : "inherit"} />
           </IconButton>
         </CardActions>
       </Card>
