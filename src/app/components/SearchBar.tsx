@@ -4,7 +4,7 @@ import { Box, Button, Input, Typography } from "@mui/material";
 import { useState } from "react";
 import RecipeList from "./RecipeList";
 
-export interface Recipes {
+export interface Recipe {
   idMeal: string;
   strMeal: string;
   strMealThumb: string;
@@ -12,7 +12,7 @@ export interface Recipes {
 
 export default function SearchBar() {
   const [search, setSearch] = useState("");
-  const [recipes, setRecipes] = useState<Recipes[]>([]);
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [error, setError] = useState("");
 
   const handleSearch = async () => {
