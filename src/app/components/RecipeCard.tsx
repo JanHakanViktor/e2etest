@@ -12,15 +12,23 @@ import {
 import { Recipe } from "./SearchBar";
 import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { useState } from "react";
+import { useState, useTransition } from "react";
+import { deleteFavorite, saveFavorite } from "@/actions";
 
 export default function RecipeList({ recipe }: { recipe: Recipe }) {
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const handleFavorite = () => {
-    setIsFavorite((prev) => !prev);
-
-    
+    startTransition(async () => {
+      if (isFavorite) {
+        await deleteFavorite(recipe.idMeal);
+        setIsFavorite(false);
+      } else {
+        await saveFavorite(recipe);
+        setIsFavorite(true);
+      }
+    });
   };
 
   return (
@@ -38,7 +46,7 @@ export default function RecipeList({ recipe }: { recipe: Recipe }) {
           component="img"
           height="250"
           image={recipe.strMealThumb}
-          alt="Paella dish"
+          alt={recipe.strMeal}
         />
         <CardActions
           disableSpacing
