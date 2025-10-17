@@ -23,7 +23,12 @@ export async function saveFavorite(recipe: {
   const exists = await db.favorite.findUnique({ where: { idMeal: recipe.idMeal } });
   if (exists) return;
 
-  await db.favorite.create({ data: recipe });
+  await db.favorite.create({ data: {
+      idMeal: recipe.idMeal,
+      strMeal: recipe.strMeal,
+      strMealThumb: recipe.strMealThumb,
+    },
+  });
   revalidatePath("/favorites");
 }
 
