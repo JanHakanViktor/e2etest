@@ -3,7 +3,7 @@ describe("User flow for recipe finder", () => {
     cy.visit("http://localhost:3000");
   });
 
-  it("should search for recipies and render results", () => {
+  it("should search for recipes and render results", () => {
     cy.get("input[placeholder='Sök recept']").type("chicken");
     cy.contains("Sök").click();
     cy.contains("Chicken").should("exist");
