@@ -48,6 +48,7 @@ export default function SearchBar() {
           onChange={(e) => setSearch(e.target.value)}
         ></Input>
         <Button onClick={handleSearch}>Sök</Button>
+        <Button href="/favorites">Favoriter!</Button>
       </Box>
       {error && (
         <Typography
