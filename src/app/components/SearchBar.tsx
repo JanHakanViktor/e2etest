@@ -1,8 +1,9 @@
 "use client";
 
 import { Box, Button, Input, Typography } from "@mui/material";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import RecipeList from "./RecipeList";
+import { fetchRecipes } from "@/actions";
 
 export interface Recipe {
   idMeal: string;
@@ -14,6 +15,7 @@ export default function SearchBar() {
   const [search, setSearch] = useState("");
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [error, setError] = useState("");
+  const [isPending, startTransition] = useTransition();
 
   const handleSearch = async () => {
     if (!search.trim()) {
@@ -23,20 +25,11 @@ export default function SearchBar() {
     }
     setError("");
 
-    try {
-      const res = await fetch(
-        `https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`
-      );
-      const data = await res.json();
-
-      if (!data.meals) {
-        setRecipes([]);
-      } else {
-        setRecipes(data.meals);
-      }
-    } catch (error) {
-      setError("Ett fel uppstod, vänligen försök igen.");
-    }
+    startTransition(async () => {
+      const data = await fetchRecipes(search);
+      if (!data.length) setError("Inga recept hittades");
+      setRecipes(data);
+    });
   };
 
   return (
