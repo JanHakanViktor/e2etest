@@ -31,3 +31,7 @@ export async function deleteFavorite(idMeal: string) {
   await db.favorite.delete({ where: { idMeal } });
   revalidatePath("/favorites");
 }
+
+export async function getFavorites() {
+  return await db.favorite.findMany();
+}
