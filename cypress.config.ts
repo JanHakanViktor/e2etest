@@ -7,9 +7,9 @@ export default defineConfig({
     baseUrl: "http://localhost:3000",
     setupNodeEvents(on) {
       on("task", {
-        async reseed() {
+        async resetDb() {
+          await db.favorite.deleteMany();
           await db.recipe.deleteMany();
-          await seedRecipes();
           return null;
         },
       });
