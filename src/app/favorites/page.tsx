@@ -40,7 +40,10 @@ export default function FavoritesPage() {
         Mina favoritrecept
       </Typography>
 
-      <Box data-cy="favorites-list">
+      <Box
+        data-cy="favorites-list"
+        sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}
+      >
         {favorites.length ? (
           favorites.map((f) => (
             <RecipeCard

@@ -48,7 +48,7 @@ export default function RecipeList({ recipe, onChange }: Props) {
 
   return (
     <Box data-cy="recipe-card" sx={{ padding: 2 }}>
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={{ maxWidth: 300 }}>
         <CardHeader
           data-cy="recipe-title"
           avatar={
@@ -60,7 +60,7 @@ export default function RecipeList({ recipe, onChange }: Props) {
         />
         <CardMedia
           component="img"
-          height="250"
+          height="300"
           image={recipe.strMealThumb}
           alt={recipe.strMeal}
           data-cy="recipe-image"
