@@ -16,14 +16,17 @@ export default function SearchBar() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [error, setError] = useState("");
   const [isPending, startTransition] = useTransition();
+  const [hasSearched, setHasSearched] = useState(false);
 
   const handleSearch = async () => {
     if (!search.trim()) {
       setError("Sökfältet är tomt");
       setRecipes([]);
+      setHasSearched(false);
       return;
     }
     setError("");
+    setHasSearched(true);
 
     startTransition(async () => {
       const data = await fetchRecipes(search);
@@ -36,6 +39,7 @@ export default function SearchBar() {
     <section>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <Input
+          data-cy="search-input"
           sx={{
             width: "30rem",
             backgroundColor: "white",
@@ -47,7 +51,9 @@ export default function SearchBar() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         ></Input>
-        <Button onClick={handleSearch}>Sök</Button>
+        <Button data-cy="search-button" onClick={handleSearch}>
+          Sök
+        </Button>
         <Button href="/favorites">Favoriter!</Button>
       </Box>
       {error && (
@@ -59,12 +65,13 @@ export default function SearchBar() {
             color: "red",
             fontWeight: 600,
           }}
+          variant="h4"
         >
           {error}
         </Typography>
       )}
       <RecipeList recipes={recipes} />
-      {!error && search.trim() && recipes.length === 0 && !error && (
+      {!error && hasSearched && recipes.length === 0 && !error && (
         <Typography
           sx={{
             display: "flex",
@@ -73,6 +80,7 @@ export default function SearchBar() {
             color: "red",
             fontWeight: 600,
           }}
+          variant="h4"
         >
           Inga recept hittades
         </Typography>
