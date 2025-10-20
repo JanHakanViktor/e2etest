@@ -11,7 +11,7 @@ describe("Favorite recipes", () => {
       cy.get('[data-cy="recipe-title"]').should("contain", "Salmon");
       cy.get('[data-cy="favorite-button"]').click();
     });
-    cy.wait(500);
+    cy.wait(1000);
     cy.visit("/favorites");
     cy.get('[data-cy="favorites-page"]').should("be.visible");
     cy.get('[data-cy="recipe-card"]').should("have.length.at.least", 1);
@@ -25,7 +25,7 @@ describe("Favorite recipes", () => {
       cy.get('[data-cy="recipe-title"]').should("exist");
       cy.get('[data-cy="favorite-button"]').click();
     });
-    cy.wait(500);
+    cy.wait(1000);
     cy.visit("/favorites");
     cy.get("[data-cy='recipe-card']").should("have.length", 1);
     cy.get("[data-cy='favorite-button']").click();

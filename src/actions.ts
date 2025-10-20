@@ -15,7 +15,7 @@ export async function fetchRecipes(search: string) {
   return data.meals || [];
 }
 
-export async function saveFavorite(recipe: {
+export async function addToFavorites(recipe: {
   idMeal: string;
   strMeal: string;
   strMealThumb: string;

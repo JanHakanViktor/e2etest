@@ -29,9 +29,9 @@ export default function SearchBar() {
     setHasSearched(true);
 
     startTransition(async () => {
-      const data = await fetchRecipes(search);
-      if (!data.length) setError("Inga recept hittades");
-      setRecipes(data);
+      const recipeData = await fetchRecipes(search);
+      if (!recipeData.length) setError("Inga recept hittades");
+      setRecipes(recipeData);
     });
   };
 

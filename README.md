@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Recipe Finder
 
-## Getting Started
+## Beskrivning
 
-First, run the development server:
+Sök recept genom TheMealDB API och spara favoriter. Projektet har testats löpande genom E2E-tester skrivna i Cypress och projektet är utvecklad med TDD som grundprincip.
+
+## Installera och initiera databasen
+
+1. Installera beroenden:
+
+   ```bash
+   npm install
+   ```
+
+2. Skapa en .env i projektroten med en SQLite URL (Om den ej redan finns):
+
+   ```env
+   DATABASE_URL="file:./dev.db"
+   ```
+
+3. Generera Prisma client:
+
+   ```bash
+   npm run generate
+   ```
+
+4. Pusha Prisma-schema till databasen:
+
+   ```bash
+   npm run push
+   ```
+
+5. Seed databasen med exempeldata:
+   ```bash
+   npm run seed
+   ```
+   (Se seeding i [prisma/seed/index.ts](prisma/seed/index.ts).)
+
+## Kör applikationen
+
+Starta dev-servern (Next.js körs på port 3000 som Cypress förväntar sig):
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Öppna webben på: http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Kör E2E-tester (Cypress)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Se till att dev-servern körs på port 3000.
+2. Öppna Cypress:
 
-## Learn More
+```bash
+npx cypress open
+```
 
-To learn more about Next.js, take a look at the following resources:
+eller kör headless:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npx cypress run
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Felsökning
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Om Prisma-klienten saknas: kör `npm run generate`.
+- Cypress-tester förutsätter att servern är up och att `DATABASE_URL` är satt.

@@ -13,7 +13,7 @@ import { Recipe } from "./SearchBar";
 import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useEffect, useState, useTransition } from "react";
-import { getFavorites, deleteFavorite, saveFavorite } from "@/actions";
+import { getFavorites, deleteFavorite, addToFavorites } from "@/actions";
 
 interface Props {
   recipe: Recipe;
@@ -40,7 +40,7 @@ export default function RecipeList({ recipe, onChange }: Props) {
         setIsFavorite(false);
         if (onChange) onChange(recipe.idMeal);
       } else {
-        await saveFavorite(recipe);
+        await addToFavorites(recipe);
         setIsFavorite(true);
       }
     });
@@ -73,6 +73,7 @@ export default function RecipeList({ recipe, onChange }: Props) {
             data-cy="favorite-button"
             aria-label="add to favorites"
             onClick={handleFavorite}
+            disabled={isPending}
           >
             <FavoriteIcon color={isFavorite ? "error" : "inherit"} />
           </IconButton>
