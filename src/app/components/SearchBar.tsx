@@ -73,6 +73,7 @@ export default function SearchBar() {
       <RecipeList recipes={recipes} />
       {!error && hasSearched && recipes.length === 0 && !error && (
         <Typography
+          data-cy="no-recipe-found"
           sx={{
             display: "flex",
             justifyContent: "center",

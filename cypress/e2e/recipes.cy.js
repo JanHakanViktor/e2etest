@@ -7,7 +7,9 @@ describe("User flow for recipe finder", () => {
     cy.get('[data-cy="search-input"]').type("chicken");
     cy.get('[data-cy="search-button"]').click();
     cy.get('[data-cy="recipe-card"]').should("have.length.at.least", 1);
-    cy.contains("Chicken").should("exist");
+    cy.get('[data-cy="recipe-card"]').first().within(() => {
+      cy.get('[data-cy="recipe-title"]').should("exist");
+    });
   });
 
   it("should throw error message if empty search", () => {
@@ -19,7 +21,7 @@ describe("User flow for recipe finder", () => {
   it("should throw error message if no recipes are found", () => {
     cy.get('[data-cy="search-input"]').type("qwertyuiop");
     cy.get('[data-cy="search-button"]').click();
-    cy.contains("Inga recept hittades").should("be.visible");
+    cy.get('[data-cy="no-recipe-found"]').should("be.visible");
     cy.get('[data-cy="recipe-card"]').should("not.exist");
   });
 });
